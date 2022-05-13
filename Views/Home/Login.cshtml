@@ -1,10 +1,10 @@
 ﻿@using StudentsApplication.Models
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "login";
 }
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "login";
 }
 
 <html>
@@ -15,19 +15,19 @@
 </head>
 
 <body>
-<form action="Main" method="post">
+<form action="main" method="post">
 
   <div class="container">
       <div>
           <p>&nbsp;</p> <p>&nbsp;</p> 
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="USERNAME" required value=@(((User)ViewBag.LastUser).Username)>
+    <input type="text" placeholder="Enter Username" name="USERNAME" required)>
 
       </div>
       <p>&nbsp;</p> <p>&nbsp;</p> 
       <div>
           <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="PASSWORD" required  value=@(((User)ViewBag.LastUser).Password)>
+    <input type="password" placeholder="Enter Password" name="PASSWORD" required>
 </div>
   <p>&nbsp;</p> <p>&nbsp;</p> 
    <div>
@@ -38,7 +38,7 @@
   </div>
 
     <p>&nbsp;</p><hr />
-    <span class="psw">Don't have an account?  <a href="Register">Create a new one</a></span>
+    <span class="psw">Don't have an account?  <a href="register">Create a new one</a></span>
 </form>
 </body>
 </html>

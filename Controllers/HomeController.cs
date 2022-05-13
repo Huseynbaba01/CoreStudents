@@ -3,10 +3,11 @@ using StudentsApplication.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-// 1. Cookies niye silinmir?  2. CSS fayli nece elave etemk olar?
+// 1. Cookies niye silinmir?  2. CSS fayli nece elave etmek olar?
 
 namespace StudentsApplication.Controllers
 {
+
     public class HomeController : Controller
     {
        
@@ -37,7 +38,7 @@ namespace StudentsApplication.Controllers
                     return View();
                 }*/
 
-
+        [Route("main")]
         [HttpPost]
         public IActionResult Main(string USERNAME, string PASSWORD)
         {
@@ -60,12 +61,12 @@ namespace StudentsApplication.Controllers
                 return RedirectToAction("Login");
             }
         }
-
         public IActionResult AddStudent()
         {
             return View();
         }
 
+        [Route("add")]
         [HttpPost]
         public IActionResult AddStudent(string NAME, string SURNAME, string DEGREE)
         {
@@ -74,7 +75,8 @@ namespace StudentsApplication.Controllers
             db.SaveChanges();
             return View();
         }
-
+        [Route("")]
+        [Route("login")]
         [HttpPost]
         public IActionResult Login(string USERNAME, string PASSWORD)
         {
@@ -110,6 +112,7 @@ namespace StudentsApplication.Controllers
             return View();
         }
 
+        [Route("login")]
         public IActionResult Login()
         {
             if (HttpContext.Request.Cookies.ContainsKey("username") 
@@ -124,6 +127,7 @@ namespace StudentsApplication.Controllers
             return View();
         }
 
+        [Route("register")]
         public IActionResult Register()
         {
             return View();
