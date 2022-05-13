@@ -61,6 +61,8 @@ namespace StudentsApplication.Controllers
                 return RedirectToAction("Login");
             }
         }
+
+        [Route("add")]
         public IActionResult AddStudent()
         {
             return View();
