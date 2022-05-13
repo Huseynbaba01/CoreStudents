@@ -3,14 +3,18 @@ using StudentsApplication.Models;
 using System.Collections.Generic;
 using System.Linq;
 
+// 1. Cookies niye silinmir?  2. CSS fayli nece elave etemk olar?
+
 namespace StudentsApplication.Controllers
 {
     public class HomeController : Controller
     {
        
 
-        public static List<Student> students = new List<Student> { };
-        /*[HttpGet]
+        public static List<Student> students = new() { };
+        
+        /*
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var user = new User
@@ -77,8 +81,24 @@ namespace StudentsApplication.Controllers
             MPDContext db = new();
             db.Users.Add(new User { Password = PASSWORD, Username = USERNAME });
             db.SaveChanges();
-            HttpContext.Response.Cookies.Append("username", USERNAME);
-            HttpContext.Response.Cookies.Append("password", PASSWORD);
+
+            //To save login data we use https cookies
+            Microsoft.AspNetCore.Http.CookieOptions options = new();
+            if (HttpContext.Request.Cookies.ContainsKey("username"))
+            {
+                HttpContext.Response.Cookies.Delete("username");
+            }
+            if (HttpContext.Request.Cookies.ContainsKey("password"))
+            {
+                HttpContext.Response.Cookies.Delete("password");
+            }
+            HttpContext.Response.Cookies.Append("username", USERNAME, options);
+            HttpContext.Response.Cookies.Append("password", PASSWORD, options);
+
+            //We use CookiesOptions class to add some functionalities to the cookies (add expiration date)
+            options.Expires = new System.DateTimeOffset(System.DateTime.Now.AddMinutes(1));
+            
+            /*
             db.Users.Add(new User
             {
                 Password = "cookie " + HttpContext.Request.Cookies["password"],
@@ -86,11 +106,21 @@ namespace StudentsApplication.Controllers
             });
 
             db.SaveChanges();
+            */
             return View();
         }
 
         public IActionResult Login()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("username") 
+                && HttpContext.Request.Cookies.ContainsKey("password"))
+            {
+                ViewBag.LastUser = new User
+                {
+                    Password = HttpContext.Request.Cookies["username"],
+                    Username = HttpContext.Request.Cookies["password"]
+                };
+            }
             return View();
         }
 
