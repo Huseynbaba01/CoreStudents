@@ -1,0 +1,32 @@
+﻿@model StudentsApplication.Models.Student
+@{
+    ViewBag.Title = "Main";
+}
+@{
+    ViewData["Title"] = "Main";
+}
+
+<h1>Students</h1>
+<form action="AddStudent">
+    <table id="MultiAddUserTable" class="table">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>SURNAME</th>
+            <th>DEGREE</th>
+        </tr>
+        @foreach (var item in (IEnumerable<StudentsApplication.Models.Student>)ViewBag.students)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Surname</td>
+                <td>@item.Degree</td>
+            </tr>
+        }
+    </table>
+    <p>&nbsp;</p>
+    <hr />
+    <input id="btn_add_student" type="submit" value="Add new student" />
+    <p>&nbsp;</p>
+</form>
